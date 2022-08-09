@@ -18,3 +18,7 @@ if u wish to use this from anywhere/not same network then use zerotier
 
 
 this probs need more work later but busy rn
+
+
+Is this against tos?
+no, it doesn't modify client nor selfbot, it uses discord's game sdk thing
