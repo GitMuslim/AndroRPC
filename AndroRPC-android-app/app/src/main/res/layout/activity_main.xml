@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/EnAC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="EnableAc"
+        android:text="Enable Accessibility"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/IPAd1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="127dp"
+        android:ems="10"
+        android:hint="Local IP"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/IPAd2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="127dp"
+        android:ems="10"
+        android:hint="ZeroTier IP"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/IPAd1" />
+
+    <EditText
+        android:id="@+id/IPAd3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="127dp"
+        android:ems="10"
+        android:hint="Other IP..."
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/IPAd2" />
+
+    <Button
+        android:id="@+id/Save1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="SelectIP1"
+        android:text="Select"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/IPAd1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/Save2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="SelectIP2"
+        android:text="Select"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/IPAd2"
+        app:layout_constraintTop_toBottomOf="@+id/Save1" />
+
+    <Button
+        android:id="@+id/Save3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="SelectIP3"
+        android:text="Select"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/IPAd3"
+        app:layout_constraintTop_toBottomOf="@+id/Save2" />
+
+    <Button
+        android:id="@+id/StartRPC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Re/Start RPC"
+        app:layout_constraintBottom_toTopOf="@+id/EnAC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/IPAd3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

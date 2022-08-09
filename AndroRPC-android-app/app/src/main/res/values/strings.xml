@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AndroRPC</string>
+    <string name="accessibility_service_label">AndroRPC</string>
+    <string name="accessibility_service_description">some desc idk</string>
+</resources>
