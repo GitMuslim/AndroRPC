@@ -15,3 +15,6 @@ swipe apps to confirm if rpc works, if it doesn't then u probs used a wrong ip l
 
 
 if u wish to use this from anywhere/not same network then use zerotier
+
+
+this probs need more work later but busy rn
