@@ -1,0 +1,21 @@
+export declare enum InputMethodQuery {
+    ImEnabled = 1,
+    ImMicroFocus = 2,
+    ImCursorRectangle = 2,
+    ImFont = 4,
+    ImCursorPosition = 8,
+    ImSurroundingText = 16,
+    ImCurrentSelection = 32,
+    ImMaximumTextLength = 64,
+    ImAnchorPosition = 128,
+    ImHints = 256,
+    ImPreferredLanguage = 512,
+    ImPlatformData = 2147483648,
+    ImAbsolutePosition = 1024,
+    ImTextBeforeCursor = 2048,
+    ImTextAfterCursor = 4096,
+    ImEnterKeyType = 8192,
+    ImAnchorRectangle = 16384,
+    ImInputItemClipRectangle = 32768,
+    ImQueryAll = 4294967295
+}

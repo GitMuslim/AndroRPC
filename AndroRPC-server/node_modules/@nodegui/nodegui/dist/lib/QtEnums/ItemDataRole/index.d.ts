@@ -1,0 +1,18 @@
+export declare enum ItemDataRole {
+    DisplayRole = 0,
+    DecorationRole = 1,
+    EditRole = 2,
+    ToolTipRole = 3,
+    StatusTipRole = 4,
+    WhatsThisRole = 5,
+    FontRole = 6,
+    TextAlignmentRole = 7,
+    BackgroundRole = 8,
+    ForegroundRole = 9,
+    CheckStateRole = 10,
+    AccessibleTextRole = 11,
+    AccessibleDescriptionRole = 12,
+    SizeHintRole = 13,
+    InitialSortOrderRole = 14,
+    UserRole = 256
+}

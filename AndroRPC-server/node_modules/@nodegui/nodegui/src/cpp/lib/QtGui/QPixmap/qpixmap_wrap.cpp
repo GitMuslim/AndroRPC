@@ -1,0 +1,165 @@
+#include "QtGui/QPixmap/qpixmap_wrap.h"
+
+#include "Extras/Utils/nutils.h"
+#include "QtCore/QVariant/qvariant_wrap.h"
+#include "QtGui/QImage/qimage_wrap.h"
+
+Napi::FunctionReference QPixmapWrap::constructor;
+
+Napi::Object QPixmapWrap::init(Napi::Env env, Napi::Object exports) {
+  Napi::HandleScope scope(env);
+  char CLASSNAME[] = "QPixmap";
+  Napi::Function func = DefineClass(
+      env, CLASSNAME,
+      {InstanceMethod("load", &QPixmapWrap::load),
+       InstanceMethod("loadFromData", &QPixmapWrap::loadFromData),
+       InstanceMethod("save", &QPixmapWrap::save),
+       InstanceMethod("scaled", &QPixmapWrap::scaled),
+       InstanceMethod("height", &QPixmapWrap::height),
+       InstanceMethod("width", &QPixmapWrap::width),
+       StaticMethod("fromImage", &QPixmapWrap::fromImage),
+       StaticMethod("fromQVariant", &StaticQPixmapWrapMethods::fromQVariant),
+       COMPONENT_WRAPPED_METHODS_EXPORT_DEFINE(QPixmapWrap)});
+  constructor = Napi::Persistent(func);
+  exports.Set(CLASSNAME, func);
+  return exports;
+}
+
+QPixmapWrap::QPixmapWrap(const Napi::CallbackInfo& info)
+    : Napi::ObjectWrap<QPixmapWrap>(info) {
+  Napi::Env env = info.Env();
+  if (info.Length() == 1) {
+    if (info[0].IsExternal()) {
+      this->instance = std::unique_ptr<QPixmap>(
+          info[0].As<Napi::External<QPixmap>>().Data());
+    } else {
+      Napi::String url = info[0].As<Napi::String>();
+      QString imageUrl = QString::fromUtf8(url.Utf8Value().c_str());
+      this->instance = std::make_unique<QPixmap>(imageUrl);
+    }
+  } else if (info.Length() == 0) {
+    this->instance = std::make_unique<QPixmap>();
+  } else {
+    Napi::TypeError::New(env, "Wrong number of arguments")
+        .ThrowAsJavaScriptException();
+  }
+  this->rawData = extrautils::configureComponent(this->getInternalInstance());
+}
+
+QPixmapWrap::~QPixmapWrap() { this->instance.reset(); }
+
+QPixmap* QPixmapWrap::getInternalInstance() { return this->instance.get(); }
+
+Napi::Value QPixmapWrap::load(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  bool loadSuccess = false;
+  if (info.Length() == 1) {
+    Napi::String url = info[0].As<Napi::String>();
+    QString imageUrl = QString::fromUtf8(url.Utf8Value().c_str());
+    loadSuccess = this->instance->load(imageUrl);
+  } else {
+    Napi::TypeError::New(env, "Wrong number of arguments")
+        .ThrowAsJavaScriptException();
+  }
+  return Napi::Boolean::New(env, loadSuccess);
+}
+
+Napi::Value QPixmapWrap::loadFromData(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  bool loadSuccess = false;
+
+  if (info.Length() > 0 && info.Length() < 3) {
+    Napi::Buffer<uchar> buffer = info[0].As<Napi::Buffer<uchar>>();
+
+    if (info.Length() > 1) {
+      Napi::String format = info[1].As<Napi::String>();
+      loadSuccess = this->instance->loadFromData(buffer.Data(), buffer.Length(),
+                                                 format.Utf8Value().c_str());
+    } else {
+      loadSuccess =
+          this->instance->loadFromData(buffer.Data(), buffer.Length());
+    }
+  } else {
+    Napi::TypeError::New(env, "Wrong number of arguments")
+        .ThrowAsJavaScriptException();
+  }
+  return Napi::Boolean::New(env, loadSuccess);
+}
+
+Napi::Value QPixmapWrap::save(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  bool loadSuccess = false;
+  if (info.Length() >= 1 && info.Length() <= 3) {
+    QString fileName =
+        QString::fromUtf8(info[0].As<Napi::String>().Utf8Value().c_str());
+    if (info.Length() >= 2) {
+      loadSuccess = this->instance->save(
+          fileName, info[1].As<Napi::String>().Utf8Value().c_str());
+    } else {
+      loadSuccess = this->instance->save(fileName);
+    }
+  } else {
+    Napi::TypeError::New(env, "Wrong number of arguments")
+        .ThrowAsJavaScriptException();
+  }
+  return Napi::Boolean::New(env, loadSuccess);
+}
+
+Napi::Value QPixmapWrap::scaled(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  Napi::Number widthValue = info[0].As<Napi::Number>();
+  Napi::Number heightValue = info[1].As<Napi::Number>();
+  int width = widthValue.Int32Value();
+  int height = heightValue.Int32Value();
+  Qt::AspectRatioMode aspectRatioMode = Qt::IgnoreAspectRatio;
+  Qt::TransformationMode transformationMode = Qt::FastTransformation;
+  if (info.Length() > 2) {
+    int aspectRatioModeInt = info[2].As<Napi::Number>().Int32Value();
+    aspectRatioMode = static_cast<Qt::AspectRatioMode>(aspectRatioModeInt);
+  }
+  if (info.Length() > 3) {
+    int transformationModeInt = info[3].As<Napi::Number>().Int32Value();
+    transformationMode =
+        static_cast<Qt::TransformationMode>(transformationModeInt);
+  }
+  QPixmap* updatedPixMap = new QPixmap(this->instance->scaled(
+      width, height, aspectRatioMode, transformationMode));
+  auto instance = QPixmapWrap::constructor.New(
+      {Napi::External<QPixmap>::New(env, updatedPixMap)});
+  return instance;
+}
+
+Napi::Value QPixmapWrap::height(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  return Napi::Value::From(env, this->instance->height());
+}
+Napi::Value QPixmapWrap::width(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  return Napi::Value::From(env, this->instance->width());
+}
+
+Napi::Value QPixmapWrap::fromImage(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+
+  QImage* img = Napi::ObjectWrap<QImageWrap>::Unwrap(info[0].As<Napi::Object>())
+                    ->getInternalInstance();
+  Qt::ImageConversionFlags flags = static_cast<Qt::ImageConversionFlags>(
+      info[1].As<Napi::Number>().Int32Value());
+  QPixmap pixmap = QPixmap::fromImage(*img, flags);
+  auto instance = QPixmapWrap::constructor.New(
+      {Napi::External<QPixmap>::New(env, new QPixmap(pixmap))});
+  return instance;
+}
+
+Napi::Value StaticQPixmapWrapMethods::fromQVariant(
+    const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  Napi::Object variantObject = info[0].As<Napi::Object>();
+  QVariantWrap* variantWrap =
+      Napi::ObjectWrap<QVariantWrap>::Unwrap(variantObject);
+  QVariant* variant = variantWrap->getInternalInstance();
+  QPixmap pixmap = variant->value<QPixmap>();
+  auto instance = QPixmapWrap::constructor.New(
+      {Napi::External<QPixmap>::New(env, new QPixmap(pixmap))});
+  return instance;
+}

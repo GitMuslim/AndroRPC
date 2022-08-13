@@ -1,0 +1,25 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BrushStyle = void 0;
+var BrushStyle;
+(function (BrushStyle) {
+    BrushStyle[BrushStyle["NoBrush"] = 0] = "NoBrush";
+    BrushStyle[BrushStyle["SolidPattern"] = 1] = "SolidPattern";
+    BrushStyle[BrushStyle["Dense1Pattern"] = 2] = "Dense1Pattern";
+    BrushStyle[BrushStyle["Dense2Pattern"] = 3] = "Dense2Pattern";
+    BrushStyle[BrushStyle["Dense3Pattern"] = 4] = "Dense3Pattern";
+    BrushStyle[BrushStyle["Dense4Pattern"] = 5] = "Dense4Pattern";
+    BrushStyle[BrushStyle["Dense5Pattern"] = 6] = "Dense5Pattern";
+    BrushStyle[BrushStyle["Dense6Pattern"] = 7] = "Dense6Pattern";
+    BrushStyle[BrushStyle["Dense7Pattern"] = 8] = "Dense7Pattern";
+    BrushStyle[BrushStyle["HorPattern"] = 9] = "HorPattern";
+    BrushStyle[BrushStyle["VerPattern"] = 10] = "VerPattern";
+    BrushStyle[BrushStyle["CrossPattern"] = 11] = "CrossPattern";
+    BrushStyle[BrushStyle["BDiagPattern"] = 12] = "BDiagPattern";
+    BrushStyle[BrushStyle["FDiagPattern"] = 13] = "FDiagPattern";
+    BrushStyle[BrushStyle["DiagCrossPattern"] = 14] = "DiagCrossPattern";
+    BrushStyle[BrushStyle["LinearGradientPattern"] = 15] = "LinearGradientPattern";
+    BrushStyle[BrushStyle["ConicalGradientPattern"] = 17] = "ConicalGradientPattern";
+    BrushStyle[BrushStyle["RadialGradientPattern"] = 16] = "RadialGradientPattern";
+    BrushStyle[BrushStyle["TexturePattern"] = 24] = "TexturePattern";
+})(BrushStyle = exports.BrushStyle || (exports.BrushStyle = {}));

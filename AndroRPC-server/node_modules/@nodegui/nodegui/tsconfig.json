@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "target": "ES2021",
+        "module": "commonjs",
+        "declaration": true,
+        "sourceMap": false,
+        "outDir": "./dist",
+        "strict": true,
+        "strictNullChecks": false,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "resolveJsonModule": true
+    },
+    "include": ["src"],
+    "typedocOptions": {
+        "mode": "file",
+        "out": "website/docs/api/generated",
+        "plugin": ["typedoc-plugin-markdown"],
+        "exclude": ["demo.ts"],
+        "excludeExternals": true,
+        "excludeNotExported": true,
+        "excludePrivate": true,
+        "excludeProtected": true,
+        "includeDeclarations": true,
+        "hideBreadcrumbs": true,
+        "hideSources": true,
+        "theme": "docusaurus2"
+    }
+}

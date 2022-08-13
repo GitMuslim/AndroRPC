@@ -1,0 +1,24 @@
+#pragma once
+
+#include <napi.h>
+
+#include <QPointer>
+
+#include "Extras/Utils/nutils.h"
+#include "QtWidgets/QTableView/ntableview.hpp"
+#include "QtWidgets/QTableView/qtableview_macro.h"
+
+class DLL_EXPORT QTableViewWrap : public Napi::ObjectWrap<QTableViewWrap> {
+  QTABLEVIEW_WRAPPED_METHODS_DECLARATION
+ private:
+  QPointer<QTableView> instance;
+
+ public:
+  static Napi::Object init(Napi::Env env, Napi::Object exports);
+  QTableViewWrap(const Napi::CallbackInfo& info);
+  ~QTableViewWrap();
+  QTableView* getInternalInstance();
+  // class constructor
+  static Napi::FunctionReference constructor;
+  // wrapped methods
+};

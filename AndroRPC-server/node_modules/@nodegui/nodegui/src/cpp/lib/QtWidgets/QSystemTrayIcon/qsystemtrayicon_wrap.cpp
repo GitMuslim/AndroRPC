@@ -1,0 +1,123 @@
+#include "QtWidgets/QSystemTrayIcon/qsystemtrayicon_wrap.h"
+
+#include <QDebug>
+#include <QWidget>
+
+#include "Extras/Utils/nutils.h"
+#include "QtGui/QIcon/qicon_wrap.h"
+#include "QtWidgets/QMenu/qmenu_wrap.h"
+#include "QtWidgets/QWidget/qwidget_wrap.h"
+
+Napi::FunctionReference QSystemTrayIconWrap::constructor;
+
+Napi::Object QSystemTrayIconWrap::init(Napi::Env env, Napi::Object exports) {
+  Napi::HandleScope scope(env);
+  char CLASSNAME[] = "QSystemTrayIcon";
+  Napi::Function func = DefineClass(
+      env, CLASSNAME,
+      {InstanceMethod("show", &QSystemTrayIconWrap::show),
+       InstanceMethod("hide", &QSystemTrayIconWrap::hide),
+       InstanceMethod("setIcon", &QSystemTrayIconWrap::setIcon),
+       InstanceMethod("isVisible", &QSystemTrayIconWrap::isVisible),
+       InstanceMethod("setToolTip", &QSystemTrayIconWrap::setToolTip),
+       InstanceMethod("setContextMenu", &QSystemTrayIconWrap::setContextMenu),
+       InstanceMethod("showMessage", &QSystemTrayIconWrap::showMessage),
+       QOBJECT_WRAPPED_METHODS_EXPORT_DEFINE(QSystemTrayIconWrap)});
+  constructor = Napi::Persistent(func);
+  exports.Set(CLASSNAME, func);
+  QOBJECT_REGISTER_WRAPPER(QSystemTrayIcon, QSystemTrayIconWrap);
+  return exports;
+}
+
+QSystemTrayIcon* QSystemTrayIconWrap::getInternalInstance() {
+  return this->instance;
+}
+
+QSystemTrayIconWrap::QSystemTrayIconWrap(const Napi::CallbackInfo& info)
+    : Napi::ObjectWrap<QSystemTrayIconWrap>(info) {
+  Napi::Env env = info.Env();
+  size_t argCount = info.Length();
+  if (argCount == 0) {
+    // --- Construct a new instance
+    this->instance = new NSystemTrayIcon();
+  } else if (argCount == 1) {
+    if (info[0].IsExternal()) {
+      // --- Wrap a given C++ instance
+      this->instance = info[0].As<Napi::External<QSystemTrayIcon>>().Data();
+    } else {
+      // --- Construct a new instance and pass a parent
+      Napi::Object parentObject = info[0].As<Napi::Object>();
+      NodeWidgetWrap* parentWidgetWrap =
+          Napi::ObjectWrap<NodeWidgetWrap>::Unwrap(parentObject);
+      this->instance =
+          new NSystemTrayIcon(parentWidgetWrap->getInternalInstance());
+    }
+  } else {
+    Napi::TypeError::New(env,
+                         "NodeGui: QSystemTrayIconWrap: Wrong number of "
+                         "arguments to constructor")
+        .ThrowAsJavaScriptException();
+  }
+  this->rawData = extrautils::configureQObject(this->getInternalInstance());
+}
+
+QSystemTrayIconWrap::~QSystemTrayIconWrap() {
+  extrautils::safeDelete(this->instance);
+}
+
+Napi::Value QSystemTrayIconWrap::show(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  this->instance->show();
+  return env.Null();
+}
+
+Napi::Value QSystemTrayIconWrap::hide(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  this->instance->hide();
+  return env.Null();
+}
+
+Napi::Value QSystemTrayIconWrap::setIcon(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  Napi::Object iconObject = info[0].As<Napi::Object>();
+  QIconWrap* iconWrap = Napi::ObjectWrap<QIconWrap>::Unwrap(iconObject);
+  this->instance->setIcon(*iconWrap->getInternalInstance());
+  return env.Null();
+}
+
+Napi::Value QSystemTrayIconWrap::isVisible(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  bool visibility = this->instance->isVisible();
+  return Napi::Boolean::New(env, visibility);
+}
+
+Napi::Value QSystemTrayIconWrap::setToolTip(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  Napi::String toolTip = info[0].As<Napi::String>();
+  this->instance->setToolTip(QString::fromStdString(toolTip.Utf8Value()));
+  return env.Null();
+}
+
+Napi::Value QSystemTrayIconWrap::setContextMenu(
+    const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  Napi::Object menuObject = info[0].As<Napi::Object>();
+  QMenuWrap* menuWrap = Napi::ObjectWrap<QMenuWrap>::Unwrap(menuObject);
+  this->instance->setContextMenu(menuWrap->getInternalInstance());
+  return env.Null();
+}
+
+Napi::Value QSystemTrayIconWrap::showMessage(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+  Napi::String title = info[0].As<Napi::String>();
+  Napi::String message = info[1].As<Napi::String>();
+  Napi::Object iconObject = info[2].As<Napi::Object>();
+  QIconWrap* iconWrap = Napi::ObjectWrap<QIconWrap>::Unwrap(iconObject);
+  Napi::Number millis = info[3].As<Napi::Number>();
+  QString msgTitle = QString::fromUtf8(title.Utf8Value().c_str());
+  QString msgMessage = QString::fromUtf8(message.Utf8Value().c_str());
+  this->instance->showMessage(msgTitle, msgMessage,
+                              *iconWrap->getInternalInstance(),
+                              millis.Int32Value());
+  return env.Null();
+}

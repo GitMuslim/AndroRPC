@@ -1,0 +1,73 @@
+#include "core/Events/eventwidget.h"
+
+#include <napi.h>
+
+#include <QDebug>
+
+void EventWidget::subscribeToQtEvent(std::string evtString) {
+  try {
+    int evtType = EventsMap::eventTypes.at(evtString);
+    this->subscribedEvents.insert(
+        {static_cast<QEvent::Type>(evtType), evtString});
+  } catch (...) {
+    // qDebug() << "EventWidget: Couldn't subscribe to qt event"
+    //          << evtString.c_str()
+    //          << ". If this is a signal you can safely ignore this warning";
+  }
+}
+
+void EventWidget::unSubscribeToQtEvent(std::string evtString) {
+  try {
+    int evtType = EventsMap::eventTypes.at(evtString);
+    this->subscribedEvents.erase(
+        static_cast<QEvent::Type>(evtType));  // erasing by key
+  } catch (...) {
+    // qDebug() << "EventWidget: Couldn't unsubscribe to qt event "
+    //          << evtString.c_str()
+    //          << ". If this is a signal you can safely ignore this warning ";
+  }
+}
+
+bool EventWidget::event(QEvent* event) {
+  return sendEventToNode(event, false, false);
+}
+
+bool EventWidget::eventAfterDefault(QEvent* event, bool baseWidgetResult) {
+  return sendEventToNode(event, true, baseWidgetResult);
+}
+
+bool EventWidget::sendEventToNode(QEvent* event, bool afterBaseWidget,
+                                  bool baseWidgetResult) {
+  if (this->emitOnNode) {
+    try {
+      QEvent::Type evtType = event->type();
+      std::string eventTypeString = subscribedEvents.at(evtType);
+      Napi::Env env = this->emitOnNode.Env();
+      Napi::HandleScope scope(env);
+
+      Napi::Value nativeEvent = Napi::External<QEvent>::New(env, event);
+      std::vector<napi_value> args = {
+          Napi::String::New(env, eventTypeString), nativeEvent,
+          Napi::Boolean::New(env, afterBaseWidget),
+          Napi::Boolean::New(env, baseWidgetResult)};
+
+      Napi::Value returnCode = this->emitOnNode.Call(args);
+      return returnCode.As<Napi::Boolean>().Value();
+    } catch (...) {
+      // Do nothing
+    }
+  }
+  return baseWidgetResult;
+}
+
+void EventWidget::connectSignalsToEventEmitter() {
+  // Do nothing
+  // This method should be overriden in sub classes to connect all signals to
+  // event emiiter of node. See Push button
+}
+
+EventWidget::~EventWidget() {
+  if (this->emitOnNode) {
+    this->emitOnNode.Reset();
+  }
+}
