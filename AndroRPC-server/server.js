@@ -8,10 +8,15 @@ const { time } = require('console');
 const {getMetadata} = require('page-metadata-parser');
 const domino = require('domino');
 const { exit } = require('process');
+const { once } = require('events');
 
 let cache = {};
 let port_server = 0000
 timerpc = Date.now()
+
+let once1 = false
+let averr = ""
+let device_nmr = ""
 
 client = new Client({
     transport: "ipc"
@@ -45,6 +50,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/postrpc', (req, res) => { 
     var link = req.body.rpc_link;
     var name = req.body.rpc_name;
+    var aver = req.body.android_ver;
+    var device_nm = req.body.device_name
     res.status(200).json({ 
         message: "Data received successfully" 
 	}); 
@@ -53,10 +60,10 @@ app.post('/postrpc', (req, res) => {
         console.log(name)
     }
 
-    read_rpc_data(link, name)
+    read_rpc_data(link, name, aver, device_nm)
 }); 
 
-async function read_rpc_data(rlink, rname) {
+async function read_rpc_data(rlink, rname, aver, device_nm) {
     end_name = rname
     //const url = 'https://premid.app/store/presences/'+end_name;
 
@@ -69,21 +76,21 @@ async function read_rpc_data(rlink, rname) {
         const doc = domino.createWindow(html).document;
         const metadata = getMetadata(doc, url);
         cache[rlink] = metadata.image
-        StartRPC(rname, metadata.image)
+        StartRPC(rname, metadata.image, aver, device_nm)
     }
 }
 
-function StartRPC(name, b_pic) {
+function StartRPC(name, b_pic, aver, device_nm) {
     large_image = b_pic
 
     if (can_run == true) {
         client.setActivity({
             details: name,
-            state: "Device: Samsung A51",
+            state: "Device: Samsung Galaxy A51",
             largeImageKey: large_image,
-            largeImageText: "Device: Samsung A51",
+            largeImageText: "AndroRPC",
             smallImageKey: "https://iconape.com/wp-content/png_logo_vector/android-robot-head.png",
-            smallImageText: "AndroRPC",
+            smallImageText: "Android 12",
             startTimestamp: timerpc
         })
     }
