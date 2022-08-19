@@ -12,7 +12,8 @@ const { once } = require('events');
 
 let cache = {};
 let port_server = 0000
-timerpc = Date.now()
+
+let timestamps = {};
 
 let once1 = false
 let averr = ""
@@ -67,8 +68,20 @@ async function read_rpc_data(rlink, rname, aver, device_nm) {
     end_name = rname
     //const url = 'https://premid.app/store/presences/'+end_name;
 
+    if (!timestamps[rlink]) {
+        timestamps[rlink] = Date.now()
+    }
+
+    if (once1 == false) {
+        if (aver != undefined && device_nm != undefined) {
+            once1 = true
+            averr = aver
+            device_nmr = device_nm
+        }
+    }
+
     if (cache[rlink]) {
-        StartRPC(rname, cache[rlink])
+        StartRPC(rname, cache[rlink], timestamps[rlink], averr, device_nmr)
     } else {
         const url = 'https://play.google.com/store/apps/details?id='+rlink
         const response = await fetch(url);
@@ -76,22 +89,23 @@ async function read_rpc_data(rlink, rname, aver, device_nm) {
         const doc = domino.createWindow(html).document;
         const metadata = getMetadata(doc, url);
         cache[rlink] = metadata.image
-        StartRPC(rname, metadata.image, aver, device_nm)
+
+        StartRPC(rname, metadata.image, timestamps[rlink], averr, device_nmr)
     }
 }
 
-function StartRPC(name, b_pic, aver, device_nm) {
+function StartRPC(name, b_pic, timestamp_r, aver, device_nm) {
     large_image = b_pic
 
     if (can_run == true) {
         client.setActivity({
             details: name,
-            state: "Device: Samsung Galaxy A51",
+            state: device_nmr,
             largeImageKey: large_image,
             largeImageText: "AndroRPC",
             smallImageKey: "https://iconape.com/wp-content/png_logo_vector/android-robot-head.png",
-            smallImageText: "Android 12",
-            startTimestamp: timerpc
+            smallImageText: "Android "+aver,
+            startTimestamp: timestamp_r
         })
     }
 }
