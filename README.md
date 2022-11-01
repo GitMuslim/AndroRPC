@@ -1,11 +1,11 @@
 # AndroRPC
-Discord Rich Presence for Android by sending app to PC!
 
 <H1 align="center">AndroRPC</H1>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/mustafakhalaf-git/AndroRPC/main/AndroRPC-android-app/newlogo" align="center" width="150" height="150" alt="AndroRPC logo">
 </p>
+Discord Rich Presence for Android by sending app to PC!
 
 How to setup?
 
