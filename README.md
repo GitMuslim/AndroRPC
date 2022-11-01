@@ -7,7 +7,7 @@
 
 <H1 align="center">How to setup?</H1>
 
-Download the apk from releases
+Download the apk from (releases)[https://github.com/mustafakhalaf-git/AndroRPC/releases]
 
 Download the server executable, start the server executable
 
