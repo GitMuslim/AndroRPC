@@ -5,7 +5,7 @@
 </p>
 <p align="center">Discord Rich Presence for Android by sending app to PC!</p>
 
-How to setup?
+<H1 align="center">How to setup?</H1>
 
 Download the apk from releases
 
