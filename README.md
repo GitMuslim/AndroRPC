@@ -1,6 +1,4 @@
-# AndroRPC
-
-<H1 align="center">AndroRPC</H1>
+<H1 align="center">#AndroRPC</H1>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/mustafakhalaf-git/AndroRPC/main/AndroRPC-android-app/newlogo" align="center" width="150" height="150" alt="AndroRPC logo">
