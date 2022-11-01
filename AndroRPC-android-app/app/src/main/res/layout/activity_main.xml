@@ -14,6 +14,7 @@
         android:text="Enable Accessibility"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
@@ -86,13 +87,44 @@
         app:layout_constraintTop_toBottomOf="@+id/Save2" />
 
     <Button
-        android:id="@+id/StartRPC"
+        android:id="@+id/AddApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Re/Start RPC"
-        app:layout_constraintBottom_toTopOf="@+id/EnAC"
+        android:onClick="AddApp"
+        android:text="Add application"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AppName" />
+
+    <EditText
+        android:id="@+id/AppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:ems="10"
+        android:hint="App/Package Name"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/IPAd3" />
+
+    <TextView
+        android:id="@+id/Result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/EnAC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AddApp" />
+
+    <Button
+        android:id="@+id/RmApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="RmApp"
+        android:text="Remove Application"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/AddApp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

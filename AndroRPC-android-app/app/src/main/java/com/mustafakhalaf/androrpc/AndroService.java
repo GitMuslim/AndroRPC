@@ -19,6 +19,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class AndroService extends AccessibilityService {
@@ -38,20 +41,25 @@ public class AndroService extends AccessibilityService {
         try {
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, 0);
             CharSequence applicationLabel = packageManager.getApplicationLabel(applicationInfo);
-            if (!packageName.toString().equals("com.android.launcher3")) {
+            SharedPreferences apps_p = getApplicationContext().getSharedPreferences("Apps", 0);
+            String reutrn_arrray = apps_p.getString("apps", "");
+            String apps_namestr = reutrn_arrray.toString().replace("[", "").replace("]", "");
+            ArrayList<String> final_array = new ArrayList<String>(Arrays.asList(apps_namestr.split(",")));
+            if (final_array.contains(applicationLabel) || final_array.contains(packageName)) {
                 if (!packageName.toString().equals(last_app)) {
-                    Log.e(TAG, "app name is: " + packageName);
                     last_app = packageName.toString();
                     final RequestQueue queue = Volley.newRequestQueue(this);
 
-                    final String url = "http://"+SelectedIP+":6999"+"/postrpc"; // your URL
+                    String url = "http://" + SelectedIP + "/postrpc"; // your URL
                     System.out.println(SelectedIP);
 
                     queue.start();
 
-                    HashMap<String, String> params = new HashMap<String,String>();
+                    HashMap<String, String> params = new HashMap<String, String>();
                     params.put("rpc_link", packageName);
                     params.put("rpc_name", applicationLabel.toString());
+                    params.put("android_ver", String.valueOf(android.os.Build.VERSION.RELEASE));
+                    params.put("device_name", "Device: "+String.valueOf(android.os.Build.MANUFACTURER+" "+android.os.Build.DEVICE));
 
                     JsonObjectRequest jsObjRequest = new
                             JsonObjectRequest(Request.Method.POST,

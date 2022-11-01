@@ -37,7 +37,6 @@
             android:name=".AndroService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
             android:label="@string/accessibility_service_label"
-            android:process=":AndroService"
             android:exported="true">
             <intent-filter>
                 <action
