@@ -17,11 +17,10 @@ Open the android app, start accessibility service, put the local ip in text box 
 
 Swipe between apps to confirm if RPC is working, if it doesn't then you probably used a wrong IP or need to disable firewall
 
-if you wish to use this from anywhere (not same network) then use [ZeroTier](https://www.zerotier.com/)
+If you wish to use this from anywhere (not same network) then use [ZeroTier](https://www.zerotier.com/)
+
+~~this probs need more work later but busy rn~~
 
 
-this probs need more work later but busy rn
-
-
-Is this against tos?
-no, it doesn't modify client nor selfbot, it uses discord's game sdk thing
+Is this against [Discord's ToS](https://discord.com/terms)?
+No, it doesn't modify client nor self-bot, it uses Discord's Game SDK PC version, the phone only sends app details to PC
