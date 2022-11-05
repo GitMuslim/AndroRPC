@@ -24,3 +24,9 @@ If you wish to use this from anywhere (not same network) then use [ZeroTier](htt
 
 Is this against [Discord's ToS](https://discord.com/terms)?
 No, it doesn't modify client nor self-bot, it uses Discord's Game SDK PC version, the phone only sends app details to PC
+
+<H1 align="center">TODO</H1>
+
+* Add greater instructions
+* Possibly publish on F-Droid
+* More features later on
