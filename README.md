@@ -29,4 +29,5 @@ No, it doesn't modify client nor self-bot, it uses Discord's Game SDK PC version
 
 * Add greater instructions
 * Possibly publish on F-Droid
+* New logo
 * More features later on
