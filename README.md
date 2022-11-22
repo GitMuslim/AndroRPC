@@ -9,6 +9,7 @@
 
 [Follow the steps here](https://github.com/mustafakhalaf-git/AndroRPC/wiki/How-to-setup)
 
+<H1 align="center">Info</H1>
 
 Is this against [Discord's ToS](https://discord.com/terms)?
 No, it doesn't modify client nor self-bot, it uses Discord's Game SDK PC version, the phone only sends app details to PC
