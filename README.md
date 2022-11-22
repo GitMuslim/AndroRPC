@@ -27,7 +27,7 @@ No, it doesn't modify client nor self-bot, it uses Discord's Game SDK PC version
 
 <H1 align="center">TODO</H1>
 
-~~* Add greater instructions~~[Done](https://github.com/mustafakhalaf-git/AndroRPC/wiki/How-to-setup)
+~~* Add greater instructions~~ [Done](https://github.com/mustafakhalaf-git/AndroRPC/wiki/How-to-setup)
 * Possibly publish on F-Droid
-~~* New logo~~ nvm this one gud
+*~~New logo~~ nvm this one gud
 * More features later on
