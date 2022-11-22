@@ -19,12 +19,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: gradle
-
-    - name: CD into correct directory
-      run: cd ./AndroRPC-android-app
-    - name: pwd
-      run: pwd
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      run: chmod +x ./AndroRPC-android-app/gradlew
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./AndroRPC-android-app/gradlew build
