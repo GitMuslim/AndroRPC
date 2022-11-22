@@ -7,7 +7,10 @@
 
 <H1 align="center">How to setup?</H1>
 
-[Follow the steps here](https://github.com/mustafakhalaf-git/AndroRPC/wiki/How-to-setup)
+<p align="center">
+Follow the steps here
+https://github.com/mustafakhalaf-git/AndroRPC/wiki/How-to-setup)
+</p>
 
 <H1 align="center">Info</H1>
 
