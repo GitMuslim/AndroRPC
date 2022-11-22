@@ -32,8 +32,23 @@ jobs:
       run: cd ./AndroRPC-server && pkg ./server.js
     - name: "test"
       run: cd ./AndroRPC-server && ls
-    - name: Upload Build Result
+    - name: Upload Android Build
       uses: actions/upload-artifact@v2.2.4
       with:
         name: "app-debug"
         path: ./AndroRPC-android-app/app/build/outputs/apk/debug/app-debug.apk
+    - name: Upload Linux Build
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        name: "linux"
+        path: ./AndroRPC-server/server-linux
+    - name: Upload Windows Build
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        name: "windows"
+        path: ./AndroRPC-server/server-win.exe
+    - name: Upload OSX Build
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        name: "macos"
+        path: ./AndroRPC-server/server-macos
