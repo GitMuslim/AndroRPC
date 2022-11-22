@@ -10,8 +10,15 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+      
     steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: "get pkg"
+      run: npm install -g pkg
+    - name: "build"
+      run: cd AndroRPC-server && pkg server.js
     - uses: actions/checkout@v3
     - name: set up JDK 11
       uses: actions/setup-java@v3
