@@ -16,7 +16,7 @@ jobs:
       with:
         node-version: 16
     - name: "get pkg"
-      run: pwd
+      run: ls
     - name: "build"
       run: cd ./AndroRPC-server && pkg ./server.js
     - uses: actions/checkout@v3
