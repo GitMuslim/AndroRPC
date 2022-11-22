@@ -26,5 +26,5 @@ jobs:
     - name: Upload Build Result
       uses: actions/upload-artifact@v2.2.4
       with:
-        name: "test"
+        name: "app-debug"
         path: ./AndroRPC-android-app/app/build/outputs/apk/debug/app-debug.apk
