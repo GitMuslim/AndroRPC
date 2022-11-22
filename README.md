@@ -12,7 +12,7 @@
 <H1 align="center">Info</H1>
 
 Is this against [Discord's ToS](https://discord.com/terms)?
-No, it doesn't modify client nor self-bot, it uses Discord's Game SDK PC version, the phone only sends app details to PC
+No, it doesn't modify the client nor self-bot, it uses Discord's Game SDK PC version, the phone only sends app details to PC
 
 <H1 align="center">TODO</H1>
 
