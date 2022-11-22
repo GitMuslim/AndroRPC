@@ -26,9 +26,9 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 16
-    - name: "get pkg"
-      run: ls
-    - name: "build"
+    - name: "Get pkg"
+      run: npm install -g pkg
+    - name: "Build with pkg"
       run: cd ./AndroRPC-server && pkg ./server.js
     - name: Upload Build Result
       uses: actions/upload-artifact@v2.2.4
