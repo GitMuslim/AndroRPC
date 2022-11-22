@@ -30,6 +30,8 @@ jobs:
       run: npm install -g pkg
     - name: "Build with pkg"
       run: cd ./AndroRPC-server && pkg ./server.js
+    - name: "test"
+      run: cd ./AndroRPC-server && ls
     - name: Upload Build Result
       uses: actions/upload-artifact@v2.2.4
       with:
