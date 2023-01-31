@@ -122,4 +122,4 @@ client.on('ready', () => {
     }, 86400000)
 });
 
-client.login({ clientId: "1003025583552336013" })
+client.login({ clientId: "1069698845522546749" })
