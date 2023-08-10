@@ -1,7 +1,7 @@
 <H1 align="center">AndroRPC</H1>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/mustafakhalaf-git/AndroRPC/main/AndroRPC-android-app/newlogo" align="center" width="150" height="150" alt="AndroRPC logo">
+  <img src="https://raw.githubusercontent.com/GitMuslim/AndroRPC/main/images/newlogo.png" align="center" width="150" height="150" alt="AndroRPC logo">
 </p>
 <p align="center">Discord Rich Presence for Android by sending app details to PC!</p>
 
@@ -13,6 +13,9 @@ Follow the steps here
 <p align="center">
 https://github.com/mustafakhalaf-git/AndroRPC/wiki/How-to-setup
 </p>
+
+<H1 align="center">Previews</H1>
+<img src="https://raw.githubusercontent.com/GitMuslim/catppuccin/main/images/preview1.png" width="100"/><br/>
 
 <H1 align="center">Info</H1>
 
