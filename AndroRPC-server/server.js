@@ -38,7 +38,7 @@ function read_json_port() {
             app.listen(port_server)
             setTray()
         } else {
-            port_server = 6999
+            port_server = 3425
             app.listen(port_server)
             setTray()
         }
