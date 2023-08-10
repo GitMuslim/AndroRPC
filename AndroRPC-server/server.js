@@ -103,7 +103,7 @@ function StartRPC(name, b_pic, timestamp_r, aver, device_nm) {
             state: device_nmr,
             largeImageKey: large_image,
             largeImageText: "AndroRPC",
-            smallImageKey: "https://iconape.com/wp-content/png_logo_vector/android-robot-head.png",
+            smallImageKey: "android",
             smallImageText: "Android "+aver,
             startTimestamp: timestamp_r
         })
@@ -122,4 +122,4 @@ client.on('ready', () => {
     }, 86400000)
 });
 
-client.login({ clientId: "1069698845522546749" })
+client.login({ clientId: "1139044721969332275" })
