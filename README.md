@@ -14,9 +14,11 @@ Follow the steps here
 https://github.com/mustafakhalaf-git/AndroRPC/wiki/How-to-setup
 </p>
 
-<H1 align="center">Previews</H1>
-<img src="https://raw.githubusercontent.com/GitMuslim/catppuccin/main/images/preview1.png" width="100"/><br/>
-
+<H1 align="center">Preview</H1>
+<h3 align="center">
+  <img src="https://raw.githubusercontent.com/GitMuslim/AndroRPC/main/images/preview1.png" width="350"/><br/>
+<h3>
+  
 <H1 align="center">Info</H1>
 
 Is this against [Discord's ToS](https://discord.com/terms)?
