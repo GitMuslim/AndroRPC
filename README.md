@@ -26,5 +26,4 @@ No, it doesn't modify the client nor self-bot, it uses Discord's Game SDK PC ver
 
 <H1 align="center">TODO</H1>
 
-* Possibly publish on F-Droid (too lazy to submit it :P)
 * More features later on
